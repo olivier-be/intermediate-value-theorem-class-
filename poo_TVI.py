@@ -19,16 +19,16 @@ class TVI:
         self._languefr=["on sait que:","f est continue car c'est un polynome","le nombre a pour intervalle ]","la valeur apprait {} fois","l'égaliter comparar un type TVI a un ","racine","1 racine","deux racine distincte"]
         self._langueus=["we know that:","f is continuous because it was an polynomail","the number search have for interval","the value appear {} time","the egalty compared TVI to","root","1 root","whitout root","two root distinct"]
         self._languechoice=["a","a","a","a","a","a""a","a","a","a","a","a","a""a","a","a","a"]
-        """ while self._tabpuissance==self.z:
-            for i in range(len(self._tabpuissance)-1):
-                if self._tabpuissance[i]>self._tabpuissance[i+1]:
-                    temp=self._tabpuissance[i+1]
-                    tempp=self._tababc[i+1]
-                    self._tabpuissance[i+1]=self._tabpuissance[i]
-                    self._tababc[i + 1]=self._tababc[i]
-                    self._tababc[i]=tempp
-                    self._tabpuissance[i]=temp
-                """
+        while self._tabpower==self._tabpower.sort():
+            for i in range(len(self._tabpower)-1):
+                if self._tabpower[i]>self._tabpower[i+1]:
+                    temp=self._tabpower[i+1]
+                    tempp=self._tababcd[i+1]
+                    self._tabpower[i+1]=self._tabpower[i]
+                    self._tababcd[i + 1]=self._tababcd[i]
+                    self._tababcd[i]=tempp
+                    self._tabpower[i]=temp
+
         if langue=="FR"or langue=="fr":
             self._languechoice=self._languefr
         elif langue=="US"or langue=="UK"or langue=="us"or langue=="uk":
