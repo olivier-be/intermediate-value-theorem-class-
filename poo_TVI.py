@@ -1,6 +1,6 @@
 from math import sqrt
 class TVI:
-    def __init__(self,a,puissance_a,b,puissance_b,c,puissance_c,d,puissance_d,valeur_chercher,intervalle1,intervalle2):
+    def __init__(self,a,puissance_a,b,puissance_b,c,puissance_c,d,puissance_d,valeur_chercher,intervalle1,intervalle2,intervalleac):
         self._tabpuissance=[puissance_a,puissance_b,puissance_c,puissance_d]
         self._tababcd=[a, b, c, d]
         self._tababcd_prime = [self._tababcd[i] * self._tabpuissance[i] for i in range(4)]
@@ -15,6 +15,7 @@ class TVI:
         self._degre=puissance_a
         self.intervalle=intervalle1
         self.intervalle2=intervalle2
+        self.intervalleb=intervalleac
         """ while self._tabpuissance==self.z:
             for i in range(len(self._tabpuissance)-1):
                 if self._tabpuissance[i]>self._tabpuissance[i+1]:
@@ -101,18 +102,18 @@ class TVI:
         comp=0
         print("on sait que:")
         print("f est continue car c'est un polynome")
-        if (self._chr<=self.fonction(self._r1) and self._signe_segmenttab[0]=="-" and (self.intervalle<self._r1)) or (self._chr>=self.fonction(self._r1) and self._signe_segmenttab[0]=="+" and (self.intervalle>self._r1)):
+        if (self._chr<=self.fonction(self._r1) and self._signe_segmenttab[0]=="-" and (self.intervalle<self._r1)or self.intervalleb==False) or (self._chr>=self.fonction(self._r1) and self._signe_segmenttab[0]=="+" and (self.intervalle>self._r1)or self.intervalleb==False):
             print("le nombre a pour intervalle ]",self._signe_segmenttab[0],"inf;", self._r1, "]")
             comp+=1
-        if  (self._chr<=self.fonction(self._r2) and self._signe_segmenttab[2]=="-"and (self.intervalle<self._r2)) or (self._chr>=self.fonction(self._r2) and self._signe_segmenttab[2]=="+" and (self.intervalle>self._r2)):
+        if  (self._chr<=self.fonction(self._r2) and self._signe_segmenttab[2]=="-"and (self.intervalle<self._r2)or self.intervalleb==False) or (self._chr>=self.fonction(self._r2) and self._signe_segmenttab[2]=="+" and (self.intervalle>self._r2)or self.intervalleb==False):
             print("le nombre a pour intervalle[ ",self._r2, ";", self._signe_segmenttab[2], "inf[")
             comp += 1
-        if self.fonction(self._r1)< self.fonction(self._r2) and (self.intervalle<self._r1)and ((self.intervalle<self._r2)):
+        if self.fonction(self._r1)< self.fonction(self._r2) and (((self.intervalle<self._r1)and ((self.intervalle<self._r2)))or self.intervalleb==False):
             if self._chr>=self.fonction(self._r1) and self._chr<=self.fonction(self._r2):
                 print("le nombre a pour intervalle[ ",self._r1, ";", self._r2, "]")
                 comp += 1
         else:
-            if self._chr>=self.fonction(self._r2) and self._chr<=self.fonction(self._r1) and (self.intervalle>self._r1)and ((self.intervalle>self._r2)):
+            if self._chr>=self.fonction(self._r2) and self._chr<=self.fonction(self._r1) and (((self.intervalle>self._r1)and ((self.intervalle>self._r2)))or self.intervalleb==False):
                 print("le nombre a pour intervalle[ ",self._r1, ";", self._r2, "]")
                 comp += 1
         print("la valeur apprait {} fois".format(comp))
