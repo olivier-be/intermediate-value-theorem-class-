@@ -21,6 +21,7 @@ class TVI:
         self._languechoice=["a","a","a","a","a","a""a","a","a","a","a","a","a""a","a","a","a"]
         self._no_root=False
         self._z=0
+        self._d=0
         while self._tabpower==self._tabpower.sort(reverse=True):
             for i in range(len(self._tabpower)-1):
                 if self._tabpower[i]>self._tabpower[i+1]:
@@ -55,19 +56,20 @@ class TVI:
             return("TVI False")
 
     def root(self, power, abcd):
+
         if power[0]>0 or power[1]>0 or power[2]>0 or power[3]>0:
-            d= abcd[1] * abcd[1] - (4 * abcd[0] * abcd[2])
-            print(d)
-            if d>0:
-                self._r1= (-abcd[1] - sqrt(d)) / (2 * abcd[0])
-                self._r2 = (-abcd[1] + sqrt(d)) / (2 * abcd[0])
-                print((-self._tababcd_prime[1] + sqrt(d)) / (2 * abcd[0]))
+            self._d= abcd[1] * abcd[1] - (4 * abcd[0] * abcd[2])
+            print(self._d)
+            if self._d>0:
+                self._r1= (-abcd[1] - sqrt(self._d)) / (2 * abcd[0])
+                self._r2 = (-abcd[1] + sqrt(self._d)) / (2 * abcd[0])
+                print((-self._tababcd_prime[1] + sqrt(self._d)) / (2 * abcd[0]))
                 print(self._languechoice[6], self._r1, self._r2)
-            elif d == 0:
-                self._r1 = (-abcd[1] - sqrt(d)) / (2 * abcd[0])
+            elif self._d == 0:
+                self._r1 = (-abcd[1] - sqrt(self._d)) / (2 * abcd[0])
                 self._r2 = self._r1
                 print(self._languechoice[6], self._r1, self._r2)
-            elif d<0:
+            elif self._d<0:
                 self._no_root=True
 
 
@@ -122,27 +124,27 @@ class TVI:
                 self._r1 = self._r1 * 2
                 self._r2 = self._r2 * 2
                 print("v",self._r1,self._r2)
-            print("test",self.fonction(-1))
+            print("test",self.fonction(-0.99993896484375))
             print("rre",self._r1 , self._r2)
             while self._r2 - self._r1 > 0.0001:
                 self._z = (self._r2 - abs(self._r1)) / 2
-                if self.fonction(self._r1) * self.fonction(self._z) <= 0:
+                if self.fonction(self._r1)-self._shr * self.fonction(self._z)-self._shr <= 0:
                     self._r2 = self._z
                 else:
                     self._r1 = self._z
                 print(self._z,self._r2)
-            print("fonc",self.fonction(-0.1649169921875))
             return (self._languechoice[7])
     def fonction(self, x):
+        for i in range(len(self._tabpower)):
+            if self._tabpower[i]<0:
+                self._tabpower[i]=0
         return self._tababcd[0] * x ** self._tabpower[0] + self._tababcd[1] * x ** self._tabpower[1] + self._tababcd[2] * x ** self._tabpower[2]+self._tababcd[3] * x ** self._tabpower[3]
-
     def TVI(self):
         self.sign_segment()
         comp=0
         print(self._r1)
         print(self._languechoice[0])
         print(self._languechoice[1])
-        print("no",self._no_root)
         if self._no_root==True:
             if (self._shr <= self.fonction(self._r1) and self._signe_segmenttab[0] == "-" and (
                     self._interval < self._r1) or self._intervalb == False) or (
@@ -165,11 +167,11 @@ class TVI:
                 if self._shr>=self.fonction(self._r2) and self._shr<=self.fonction(self._r1) and (((self._interval > self._r1) and ((self._interval > self._r2))) or self._intervalb == False):
                     print(self._languechoice[2] ,self._r1, ";", self._r2, "]")
         else:
-            if self.fonction(self._r1)<self._shr and(((self._interval > self._r1) and ((self._interval > self._r2))) or self._intervalb == False):
+            if self.fonction(self._r1)>self._shr and(((self._interval > self._r1) and ((self._interval > self._r2))) or self._intervalb == False):
                 print(self._languechoice[2], "[", self._r2, ";", self._signe_segmenttab[2], "inf[")
                 comp += 1
-            if self.fonction(self._r1)>self._shr and (((self._interval > self._r1) and ((self._interval > self._r2))) or self._intervalb == False):
-                print(self._languechoice[2], "]", self._signe_segmenttab[0], "inf;", self._r1, "]")
+            if self.fonction(self._r1)<self._shr and (((self._interval > self._r1) and ((self._interval > self._r2))) or self._intervalb == False):
+                print(self._languechoice[2], self._signe_segmenttab[0], "inf;", self._r1, "]")
                 comp += 1
         print(self._languechoice[3].format(comp))
         if comp>0:
